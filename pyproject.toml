@@ -10,8 +10,11 @@ python = "^3.12"
 fastapi = "^0.111.0"
 python-multipart = "^0.0.9"
 pillow = "^10.3.0"
+
+# Face detection and dependencies
 deepface = "^0.0.91"
 tf-keras = "^2.16.0" # ValueError: You have tensorflow 2.16.1 and this requires tf-keras package.
+opencv-python-headless = "^4.9.0.80" # ImportError: libGL.so.1: cannot open shared object file
 
 
 [build-system]

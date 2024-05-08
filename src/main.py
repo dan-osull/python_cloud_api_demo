@@ -1,10 +1,10 @@
 from PIL import UnidentifiedImageError
 from fastapi import FastAPI, Response, UploadFile, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import RedirectResponse
 
 from src.image_handling import replace_faces_with_cat
 
-app = FastAPI()
+app = FastAPI(title="Human Face Improvement System")
 
 
 @app.post("/images")
@@ -17,6 +17,5 @@ def replace_faces_with_cat_api(image: UploadFile) -> Response:
 
 
 @app.get("/")
-def home_page() -> HTMLResponse:
-    with open("assets/index.html") as file:
-        return HTMLResponse(content=file.read())
+def home_page() -> RedirectResponse:
+    return RedirectResponse("/docs")

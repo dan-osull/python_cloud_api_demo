@@ -6,6 +6,6 @@ COPY poetry.lock ./
 COPY pyproject.toml ./
 RUN poetry install --only main
 COPY src ./src
-COPY src ./assets
+COPY assets ./assets
 CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "80"]
 EXPOSE 80
