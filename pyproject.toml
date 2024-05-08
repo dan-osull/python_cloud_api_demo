@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "python-cloud-api-demo"
+version = "0.1.0"
+description = ""
+authors = ["Dan O'Sullivan <dan@osull.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.111.0"
+python-multipart = "^0.0.9"
+pillow = "^10.3.0"
+deepface = "^0.0.91"
+tf-keras = "^2.16.0" # ValueError: You have tensorflow 2.16.1 and this requires tf-keras package.
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
