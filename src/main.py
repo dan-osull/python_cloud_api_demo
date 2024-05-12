@@ -26,7 +26,7 @@ recent_image = RecentImageStore()
 @app.post("/convert", responses={400: {"detail": "Bad image data"}})
 def replace_faces_with_cats_api(image: UploadFile) -> Response:
     try:
-        image_bytes = replace_faces_with_cats(image)
+        image_bytes = replace_faces_with_cats(image.file)
     except UnidentifiedImageError:
         raise HTTPException(status_code=400, detail="Bad image data")
     recent_image.webp_image = image_bytes

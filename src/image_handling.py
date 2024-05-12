@@ -2,9 +2,9 @@ import random
 from io import BytesIO
 from pathlib import Path
 from tempfile import NamedTemporaryFile
+from typing import BinaryIO
 
 from deepface import DeepFace
-from fastapi import UploadFile
 from PIL import Image
 from pydantic import BaseModel
 
@@ -20,17 +20,17 @@ class FaceLocation(BaseModel):
     h: int
 
 
-def replace_faces_with_cats(image_in: UploadFile) -> bytes:
+def replace_faces_with_cats(image_in: BinaryIO) -> bytes:
     """
     Raises `UnidentifiedImageError` if given bad data.
 
     Returns WebP format image.
     """
-    image = _resize_image(image_in=image_in.file.read())
+    image = _resize_image(image_in=image_in.read())
     with NamedTemporaryFile(mode="wb") as tempfile:
         tempfile.write(_convert_image_to_webp_bytes(image))
         face_locations = _get_face_locations(tempfile.name)
-    image_with_faces_replaced = _replace_face_in_image(
+    image_with_faces_replaced = _replace_faces_in_image(
         image=image, face_locations=face_locations
     )
     return _convert_image_to_webp_bytes(image_with_faces_replaced)
@@ -57,7 +57,7 @@ def _get_face_locations(image_path: str) -> list[FaceLocation]:
     return [FaceLocation(**item["facial_area"]) for item in faces]
 
 
-def _replace_face_in_image(
+def _replace_faces_in_image(
     image: Image.Image, face_locations: list[FaceLocation]
 ) -> Image.Image:
     for face in face_locations:
